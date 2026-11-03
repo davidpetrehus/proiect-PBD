@@ -1,6 +1,7 @@
 # Diagrama ER - Sistem Preluare Comenzi
 
 
+```mermaid
 erDiagram
     CLIENTI ||--o{ COMENZI : plaseaza
     COMENZI ||--|{ DETALII_COMENZI : contine
@@ -49,4 +50,4 @@ erDiagram
         string metoda_livrare
         string status_livrare
     }
-
+```
