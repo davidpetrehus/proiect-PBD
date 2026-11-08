@@ -2,52 +2,50 @@
 
 
 ```mermaid
-erDiagram
-    CLIENTI ||--o{ COMENZI : plaseaza
-    COMENZI ||--|{ DETALII_COMENZI : contine
-    PRODUSE ||--o{ DETALII_COMENZI : include
-    COMENZI ||--o| LIVRARI : are
 
-    CLIENTI {
-        int id_client PK
-        string nume
-        string prenume
-        string email
-        string telefon
-        string adresa
-    }
+flowchart TB
+    CLIENT["CLIENT"]
+    ANGAJAT["ANGAJAT"]
+    COMANDA["COMANDA"]
+    PRODUS["PRODUS"]
+    CATEGORIE["CATEGORIE"]
+    DETALIU["DETALIU_COMANDA"]
+    TRANSPORT["TRANSPORT"]
+    SOFER["SOFER"]
 
-    PRODUSE {
-        int id_produs PK
-        string denumire
-        string descriere
-        decimal pret
-        int stoc
-        string categorie
-    }
+    R1{"PLASEAZA"}
+    R2{"PREIA"}
+    R3{"CONTINE"}
+    R4{"APARE IN"}
+    R5{"APARTINE"}
+    R6{"ARE"}
+    R7{"EFECTUEAZA"}
 
-    COMENZI {
-        int id_comanda PK
-        int id_client FK
-        date data_comanda
-        decimal valoare_totala
-        string status_comanda
-    }
+    CLIENT ---|"1"| R1
+    R1 ---|"N"| COMANDA
 
-    DETALII_COMENZI {
-        int id_detaliu PK
-        int id_comanda FK
-        int id_produs FK
-        int cantitate
-        decimal pret_unitar
-    }
+    ANGAJAT ---|"1"| R2
+    R2 ---|"N"| COMANDA
 
-    LIVRARI {
-        int id_livrare PK
-        int id_comanda FK
-        date data_expedierii
-        date data_livrarii
-        string metoda_livrare
-        string status_livrare
-    }
+    COMANDA ---|"1"| R3
+    R3 ---|"N"| DETALIU
+
+    PRODUS ---|"1"| R4
+    R4 ---|"N"| DETALIU
+
+    CATEGORIE ---|"1"| R5
+    R5 ---|"N"| PRODUS
+
+    COMANDA ---|"1"| R6
+    R6 ---|"0..1"| TRANSPORT
+
+    SOFER ---|"1"| R7
+    R7 ---|"N"| TRANSPORT
+
+    classDef entity fill:#dbeafe,stroke:#2563eb,color:#111827,stroke-width:2px
+    classDef relation fill:#fef3c7,stroke:#d97706,color:#111827,stroke-width:2px
+
+    class CLIENT,ANGAJAT,COMANDA,PRODUS,CATEGORIE,DETALIU,TRANSPORT,SOFER entity
+    class R1,R2,R3,R4,R5,R6,R7 relation
+
 ```
